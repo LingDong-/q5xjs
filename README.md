@@ -255,7 +255,7 @@ q5.js provides following features that are not in p5.js:
 
 q5.js is mostly compatible with p5 addons. The only issue is that the addons usually expect a global object called `p5` for them to append methods to (among a couple other things), which `q5` naturally does not provide.
 
-As a solution, p5 provides a special file called `q5.p5acl.js` (p5 addon compatibility layer) which you can link to in your HTML before any p5 addons. For example:
+As a solution, q5 provides a special file called `q5.p5acl.js` (p5 addon compatibility layer) which you can link to in your HTML before any p5 addons. For example:
 
 ```html
 <script src="q5.min.js"></script>
