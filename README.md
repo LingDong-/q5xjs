@@ -35,13 +35,21 @@ q5.js is currently experimental; Feel free to point out any issues.
 
 ## Download
 
-| ⬇︎<br>[&nbsp;&nbsp;&nbsp;q5.js&nbsp;&nbsp;&nbsp;&nbsp;<br>](q5.js)<sub>65KB</sub>  |  ⬇︎<br>[q5.min.js<br>](q5.min.js)<sub>33KB</sub> |
+v0.0.1
+
+| ⬇︎<br>[&nbsp;&nbsp;&nbsp;q5.js&nbsp;&nbsp;&nbsp;&nbsp;<br>](https://cdn.jsdelivr.net/gh/LingDong-/q5xjs/q5.js)<sub>65KB</sub>  |  ⬇︎<br>[q5.min.js<br>](https://cdn.jsdelivr.net/gh/LingDong-/q5xjs/q5.min.js)<sub>33KB</sub> |
 |---|---|
 
 To use, put this line in your HTML:
 
 ```html
 <script src="q5.min.js"></script>
+```
+
+or via CDN:
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/LingDong-/q5xjs/q5.min.js"></script>
 ```
 
 
@@ -243,7 +251,7 @@ As a solution, p5 provides a special file called `q5.p5acl.js` (p5 addon compati
 
 After which you'll be able to access functionalities from p5 addons under a global `addons` object, for example:
 
-```
+```js
 let sfx = addons.loadSound("music.mp3");
 ```
 

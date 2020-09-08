@@ -200,7 +200,7 @@ a:hover{
     <div><i>A small and fast alternative implementation of <b><a href="https://p5js.org/">p5.js</a></b>.</i>  <a href="q5.min.js" style="text-decoration:underline">[Download (33KB minified)]</a></div>
     
     <div style="font-size:16px;font-weight:bold;margin-top:10px;margin-bottom:15px">
-      <a href="https://mark-this-down.glitch.me/?https://q5xjs.netlify.app/README.md">README</a> | <a href="https://github.com/LingDong-/q5xjs">Source Code</a>
+      <a href="https://mark-this-down.glitch.me/?https://cdn.jsdelivr.net/gh/LingDong-/q5xjs/README.md">README</a> | <a href="https://github.com/LingDong-/q5xjs">Source Code</a>
     </div>
   </div>
 
