@@ -254,6 +254,8 @@ q5.js has significant speed advantage in imaging operations because it uses hard
 
 The following benchmarks are generated with Google Chrome 84, on an old-ish Macbook Pro 2015 (with lots of apps and tabs running); Performance varies depending on software and hardware.
 
+p5.js version used is **1.1.9**.
+
 
 | Operation on 1024x1024 image | p5.js | q5.js |
 |---|---|---|
