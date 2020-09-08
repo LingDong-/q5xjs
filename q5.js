@@ -10,8 +10,15 @@ function Q5(scope){
     $.canvas.height = $.height;
     
     if (scope != "offscreen"){
-      document.body.appendChild($.canvas);
+      if (document.body){
+        document.body.appendChild($.canvas);
+      }else{
+        window.addEventListener("load",function(){
+          document.body.appendChild($.canvas);
+        })
+      }
     }
+    
     defaultStyle();
 
     //================================================================
