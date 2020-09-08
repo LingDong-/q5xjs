@@ -161,7 +161,7 @@ function Q5(scope){
     $._ellipseMode = $.CENTER;
     $._rectMode = $.CORNER;
     $._curveDetail = 20;
-    $._curveTightness = 0.0;
+    $._curveAlpha = 0.0;
     $._noLoop = false;
 
     $._textFont = "sans-serif";
@@ -778,7 +778,11 @@ function Q5(scope){
     $.ellipseMode =    function(x){$._ellipseMode = x;}
     $.rectMode =       function(x){$._rectMode = x;}
     $.curveDetail =    function(x){$._curveDetail = x;}
-    $.curveTightness = function(x){$._curveTightness = x;}
+    $.curveAlpha =     function(x){$._curveAlpha = x;}
+    $.curveTightness = function(x){
+      console.warn("curveTightness() sets the 'alpha' parameter of Catmull-Rom curve, and is NOT identical to p5.js counterpart. As this might change in the future, please call curveAlpha() directly.");
+      $._curveAlpha = x;
+    }
     
     //================================================================
     // DRAWING
@@ -1079,7 +1083,7 @@ function Q5(scope){
       let p2 = curveBuff[curveBuff.length-2];
       let p3 = curveBuff[curveBuff.length-1];
       let pts = catmullRomSpline(...p0,...p1,...p2,...p3,$._curveDetail,
-        $._curveTightness,
+        $._curveAlpha,
       );
       for (let i = 0; i < pts.length; i++){
         if (firstVertex){
@@ -1226,7 +1230,7 @@ function Q5(scope){
     }
     filterImpl[$.GRAY] = function(data){
       for (let i = 0; i < data.length; i += 4) {
-        const gray = (0.2126 * data[i] + 0.7152 * data[i+1] + 0.0722 * data[i+2])*255;
+        const gray = (0.2126 * data[i] + 0.7152 * data[i+1] + 0.0722 * data[i+2]);
         data[i] = data[i + 1] = data[i + 2] = gray;
       }
     }

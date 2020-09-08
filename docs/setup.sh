@@ -11,6 +11,7 @@ rm p5-reference.zip
 cp ../q5.js q5.js
 cp ../q5.min.js q5.min.js
 cp ../tests.js tests.js
+cp ../README.md README.md
 
 # build site
 node make_site.js
