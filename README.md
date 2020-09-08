@@ -37,7 +37,7 @@ q5.js is currently experimental; Feel free to point out any issues.
 
 v0.0.1
 
-| ⬇︎<br>[&nbsp;&nbsp;&nbsp;q5.js&nbsp;&nbsp;&nbsp;&nbsp;<br>](https://cdn.jsdelivr.net/gh/LingDong-/q5xjs/q5.js)<sub>65KB</sub>  |  ⬇︎<br>[q5.min.js<br>](https://cdn.jsdelivr.net/gh/LingDong-/q5xjs/q5.min.js)<sub>33KB</sub> |
+| ⬇︎<br>[&nbsp;&nbsp;&nbsp;&nbsp;q5.js&nbsp;&nbsp;&nbsp;&nbsp;<br>](https://cdn.jsdelivr.net/gh/LingDong-/q5xjs/q5.js)<sub>65KB</sub>  |  ⬇︎<br>[q5.min.js<br>](https://cdn.jsdelivr.net/gh/LingDong-/q5xjs/q5.min.js)<sub>33KB</sub> |
 |---|---|
 
 To use, put this line in your HTML:
@@ -52,6 +52,14 @@ or via CDN:
 <script src="https://cdn.jsdelivr.net/gh/LingDong-/q5xjs/q5.min.js"></script>
 ```
 
+## Table of Contents
+
+- [Download](#download)
+- [Motivation](#motivation)
+- [Key Differences with p5](#key-differences-with-p5)
+- [Extra Features](#extra-features)
+- [Using p5 Addons](#using-p5-addons)
+- [Benchmarks](#benchmarks)
 
 ## Motivation
 
@@ -62,7 +70,7 @@ It gets stuff drawn onto the screen quick and easy!
 Though it might sound silly, but it actually means a lot for people of creative expression. The easier it is to try different things, the more possibilities you can try (before time and/or patience run out), and the higher the possibility that you'll get something nice in the end. Therefore, though theoretically you can achieve the exact same result in any competent graphics system, the tool does matter in practice: You have more time actually working on the looks your piece instead of spending it on wondering why the computer doesn't work as you intend.
 
 
-Where I study computational art, p5.js is taught as "the" framework for the web, and it's been a great introduction. However due to some of the ways p5.js is implemented, I find myself using it less and less as I make more and more projects. Instead I reach directly for the JavaScript/Web API's (which are also well designed enough). I sometimes think of this as getting rid of the "baby" wheels on the bicycle. But I miss the artist-centered logic of the p5 interface. I'm now thinking, is there a better way?
+[Where](https://www.cmu.edu/cfa/studio/index.html) I studied computational art, p5.js is taught as "the" framework for the web, and it's been a great introduction. However due to some of the ways p5.js is implemented, I find myself using it less and less as I make more and more projects. Instead I reach directly for the JavaScript/Web API's (which are also well designed enough). I sometimes think of this as getting rid of the "baby" wheels on the bicycle. But I miss the artist-centered logic of the p5 interface. I'm now thinking, is there a better way?
 
 To clarify: I think the official p5.js implementation is perfectly justified for its philosophy and suitability for its intended purpose, but my own needs are different enough that I think they justify another implementation instead of pull requests to the official one.
 
@@ -84,7 +92,7 @@ q5.js does NOT not aim to:
 - ❌ simulate completely identical behavior for current and future versions of p5.js.
 
 
-## Other Differences with p5.js
+## Key Differences with p5
 
 
 ### I. "Namespaced Mode" 🏷️
@@ -232,6 +240,15 @@ Though of course the `setup()` and `draw()` functions are still there if you nee
 #### q5
 
 **q5.js** is pretty dumb. It will only do things when you communicate the command to it in the simplest way, and executes them in the most unimaginative way. This means that functions mainly just take numeric inputs (except `text()` of course), and any behavior needs to be explicitly triggered. You can expect q5 to have almost no overhead between digesting your parameters and putting them into use.
+
+
+## Extra Features
+
+q5.js provides following features that are not in p5.js:
+
+- `randomExponential()` in adition to `randomGaussian()`: a random distribution that resembles exponential decay.
+- `curveAlpha()`: manipulate the `α` parameter of Catmull-Rom curves.
+- `relRotationX`, `relRotationY` and `relRotationZ`: Similar to `rotationX/Y/Z`, but are relative to the orientation of the mobile device.
 
 
 ## Using p5 Addons
