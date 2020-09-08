@@ -8,7 +8,7 @@ q5.js is a small and fast alternative (experimental) implementation of [p5.js](h
 
 Currently, q5.js supports almost all of p5.js's 2D drawing API's, most of math and other utilities. It does not support 3D yet; 3D support will likely come as an extension to keep the main library lightweight. It excludes DOM and sound functionalities, though it is mostly compatible with p5.sound.js and p5.dom.js.
 
-To explore supported functionalities, check out these q5 renditions of p5 examples on [this page](q5xjs.glitch.me).
+To explore supported functionalities, check out these q5 renditions of p5 examples on [this page](https://q5xjs.netlify.app).
 
 Here's a quick sampling of q5.js usage (in case you're not familiar with p5):
 
