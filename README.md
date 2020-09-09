@@ -10,6 +10,8 @@ Currently, q5.js supports almost all of p5.js's 2D drawing API's, most of math a
 
 To explore supported functionalities, check out these q5 renditions of p5 examples on [this page](https://q5xjs.netlify.app).
 
+q5.js can also be used with the p5 online editor (editor.p5js.org). [Example](https://editor.p5js.org/lingdong/sketches/xrT2VF08P).
+
 Here's a quick sampling of q5.js usage (in case you're not familiar with p5):
 
 ```js

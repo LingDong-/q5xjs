@@ -18,7 +18,7 @@ function Q5(scope){
         })
       }
     }
-    
+
     defaultStyle();
 
     //================================================================
@@ -239,6 +239,7 @@ function Q5(scope){
     $.createGraphics = $.createImage = function(width, height){
       let g = new graphics("offscreen");
       g.createCanvas(width,height);
+      g.noLoop();
       return g;
     }
 
@@ -804,6 +805,7 @@ function Q5(scope){
         return $.image(arguments[0],0,0,$.width,$.height);
       }
       ctx.save();
+      ctx.resetTransform();
       ctx.fillStyle=$.color(...Array.from(arguments));
       ctx.fillRect(0,0,$.width,$.height);
       ctx.restore();
