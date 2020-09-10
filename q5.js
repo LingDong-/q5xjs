@@ -263,8 +263,16 @@ function Q5(scope){
     // MATH
     //================================================================
 
-    $.map = function(value,istart,istop,ostart,ostop) {
-      return ostart + (ostop - ostart) * ((value - istart)*1.0 / (istop - istart))
+    $.map = function(value,istart,istop,ostart,ostop,clamp) {
+      let val = ostart + (ostop - ostart) * ((value - istart)*1.0 / (istop - istart));
+      if (!clamp){
+        return val;
+      }
+      if (ostart < ostop){
+        return Math.min(Math.max(val,ostart),ostop);
+      }else{
+        return Math.min(Math.max(val,ostop),ostart);
+      }
     }
     $.lerp = function(a,b,t){
       return a*(1-t) + b*t;
@@ -762,7 +770,12 @@ function Q5(scope){
         ctx.strokeStyle = arguments[0];
         return;
       }
-      ctx.strokeStyle = $.color(...Array.from(arguments));
+      let col = $.color.apply(null,arguments);
+      if (col._a <= 0){
+        $._noStroke = true;
+        return;
+      }
+      ctx.strokeStyle = col;
     }
     $.noStroke = function(){
       $._noStroke = true;
@@ -773,7 +786,12 @@ function Q5(scope){
         ctx.fillStyle = arguments[0];
         return;
       }
-      ctx.fillStyle = $.color(...Array.from(arguments));
+      let col = $.color.apply(null,arguments);
+      if (col._a <= 0){
+        $._noFill = true;
+        return;
+      }
+      ctx.fillStyle = col;
     }
     $.noFill = function(){
       $._noFill = true;
