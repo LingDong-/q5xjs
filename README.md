@@ -1,16 +1,16 @@
 # q5.js
 
 
-q5.js is a small and fast alternative (experimental) implementation of [p5.js](https://p5js.org), the client-side JS platform for creative expression on the web. q5.js is mostly code-compatible with p5.js, meaning you could simply swap out the library link in an existing sketch and expect it to work with minimal modification. It inherits most of its good stuff from p5.js, though it puts more focus on following aspects:
+q5.js is a small and fast alternative (experimental) implementation of [p5.js](https://p5js.org), the client-side JS platform for creative expression on the web. q5.js is mostly code-compatible with p5.js, meaning you can simply swap out the library link in an existing sketch and expect it to work with minimal modification. It inherits most of its good stuff from p5.js, though it puts more emphasis on following aspects:
 
 - **lightweight**: 33KB minified (p5.min.js 1.1.9 is 800+KB). ([Smaller libraries have smaller carbon footprint!](https://observablehq.com/@mrchrisadams/carbon-footprint-of-sending-data-around))
-- **fast**: It does so by being a thinner wrapper on Canvas/Web API, skipping parameter validation, and use faster algorithms wherever possible.
+- **fast**: It does so by being a thinner wrapper on Canvas/Web API, skipping parameter validation, and using faster algorithms wherever possible.
 
-Currently, q5.js supports almost all of p5.js's 2D drawing API's, most of math and other utilities. It does not support 3D yet; 3D support will likely come as an extension to keep the main library lightweight. It excludes DOM and sound functionalities, though it is mostly compatible with p5.sound.js and p5.dom.js.
+Currently, q5.js supports almost all of p5.js's 2D drawing API's, most of its math functionality, and other utilities. It does not support 3D yet; 3D support will likely come as an extension to keep the main library lightweight. It excludes DOM and sound functionalities, though it is mostly compatible with p5.sound.js and p5.dom.js.
 
-To explore supported functionalities, check out these q5 renditions of p5 examples on [this page](https://q5xjs.netlify.app).
+To explore supported functionalities, check out these q5 renditions of the standard p5 examples on [this page](https://q5xjs.netlify.app).
 
-q5.js can also be used with the p5 online editor (editor.p5js.org). [Example](https://editor.p5js.org/lingdong/sketches/xrT2VF08P).
+q5.js can also be used with the p5 online Web Editor (editor.p5js.org). [Example](https://editor.p5js.org/lingdong/sketches/xrT2VF08P).
 
 Here's a quick sampling of q5.js usage (in case you're not familiar with p5):
 
@@ -65,19 +65,19 @@ or via CDN:
 
 ## Motivation
 
-After having used many graphics libraries across many different languages, I found that the Processing/p5.js/Openframeworks system has one huge advantage over others: 
+After having used many graphics libraries across many different languages, I have found that the Processing/p5.js/Openframeworks system has one huge advantage over others: 
 
 It gets stuff drawn onto the screen quick and easy! 
 
-Though it might sound silly, but it actually means a lot for people of creative expression. The easier it is to try different things, the more possibilities you can try (before time and/or patience run out), and the higher the possibility that you'll get something nice in the end. Therefore, though theoretically you can achieve the exact same result in any competent graphics system, the tool does matter in practice: You have more time actually working on the looks your piece instead of spending it on wondering why the computer doesn't work as you intend.
+This might sound silly, but it actually means a lot for people concerned with creative expression. The easier it is to try different things, the more possibilities you can try (before time and/or patience run out), and the greater the chance that you'll get something nice in the end. Therefore, although you can theoretically achieve the exact same result in any decent graphics system, the tool does matter in practice: You want more time to spend actually working on how your piece looks, instead of spending it on wondering why the computer doesn't work as you intend.
 
 
-[Where](https://www.cmu.edu/cfa/studio/index.html) I studied computational art, p5.js is taught as "the" framework for the web, and it's been a great introduction. However due to some of the ways p5.js is implemented, I find myself using it less and less as I make more and more projects. Instead I reach directly for the JavaScript/Web API's (which are also well designed enough). I sometimes think of this as getting rid of the "baby" wheels on the bicycle. But I miss the artist-centered logic of the p5 interface. I'm now thinking, is there a better way?
+[Where](https://www.cmu.edu/cfa/studio/index.html) I studied computational art, p5.js is taught as "the" framework for the web, and it's been a great introduction. However, due to some of the ways in which p5.js is implemented, I find myself using it less and less as I make more and more projects. Instead I reach directly for the JavaScript/Web API's (which are also well designed enough). I sometimes think of this as shedding the "baby" wheels on the bicycle. But then I miss the artist-centered logic of the p5 interface! I'm now thinking: is there a better way?
 
 To clarify: I think the official p5.js implementation is perfectly justified for its philosophy and suitability for its intended purpose, but my own needs are different enough that I think they justify another implementation instead of pull requests to the official one.
 
 
-In fact, it is not uncommon for successful software systems to have multiple implementations under one spec (Think compilers of C, implementations of SQL, and engines of JavaScript): The user can choose a backend that best suits their goals or needs. The distinction between the "spec" and the "implementation" is a good idea: when one is using p5.js or Processing (or OpenFrameworks), what one is really using is the same set of commands, the intuitive way of describing drawings, that empowers creative expression; The actual way these commands are implemented internally is incidental: it should be able to be swapped as necessary.
+In fact, it is not uncommon for successful software systems to have multiple implementations under one spec (think: compilers of C, implementations of SQL, and engines of JavaScript): The user can choose a backend that best suits their goals or needs. The distinction between the "spec" and the "implementation" is a good idea: when one is using p5.js (or Processing or OpenFrameworks), what one is really using is the same set of commands, the intuitive way of describing drawings, that empowers creative expression. The actual way these commands are implemented internally is incidental; it should be possible to swap internal implementations as necessary.
 
 
 q5.js aims to:
