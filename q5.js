@@ -1750,8 +1750,8 @@ function Q5(scope){
     };
     let lcg1 = Lcg();
     let lcg2 = Lcg();
-    lcg1.setSeed(Math.random());
-    lcg2.setSeed(Math.random());
+    lcg1.setSeed(Math.random()*4294967296);
+    lcg2.setSeed(Math.random()*4294967296);
     $.noiseSeed = function(seed) {
       lcg2.setSeed(seed);
       p_perlin = new Array(PERLIN_SIZE + 1);
