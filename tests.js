@@ -1168,6 +1168,8 @@ function keyPressed() {
 function draw() {}
 function keyPressed() {
   background('yellow');
+  noStroke();
+  fill(0);
   text(`${key} ${keyCode}`, 10, 40);
   print(key, ' ', keyCode);
   return false; // prevent default

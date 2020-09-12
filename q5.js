@@ -824,7 +824,11 @@ function Q5(scope){
       }
       ctx.save();
       ctx.resetTransform();
-      ctx.fillStyle=$.color(...Array.from(arguments));
+      if (typeof arguments[0] == "string"){
+        ctx.fillStyle = arguments[0];
+      }else{
+        ctx.fillStyle=$.color(...Array.from(arguments));
+      }
       ctx.fillRect(0,0,$.width,$.height);
       ctx.restore();
     }
