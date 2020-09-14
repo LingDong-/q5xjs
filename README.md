@@ -37,8 +37,6 @@ q5.js is currently experimental; Feel free to point out any issues.
 
 ## Download
 
-v0.0.1
-
 | ⬇︎<br>[&nbsp;&nbsp;&nbsp;&nbsp;q5.js&nbsp;&nbsp;&nbsp;&nbsp;<br>](https://cdn.jsdelivr.net/gh/LingDong-/q5xjs/q5.js)<sub>65KB</sub>  |  ⬇︎<br>[q5.min.js<br>](https://cdn.jsdelivr.net/gh/LingDong-/q5xjs/q5.min.js)<sub>33KB</sub> |
 |---|---|
 
