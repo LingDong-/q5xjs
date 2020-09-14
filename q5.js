@@ -1792,6 +1792,9 @@ function Q5(scope){
       rng1.setSeed(seed);
     }
     $.random = function(a,b){
+      if (a == undefined){
+        return rng1.rand();
+      }
       if (typeof a == 'number'){
         if (b != undefined){
           return rng1.rand()*(b-a)+a;
