@@ -1798,8 +1798,10 @@ function Q5(scope){
         }else{
           return rng1.rand()*a;
         }
-      }else{
+      }else if (Array.isArray(a)) {
         return a[~~(a.length*rng1.rand())];
+      }else{
+        return Math.random();
       }
     }
     $.randomGenerator = function(method){
