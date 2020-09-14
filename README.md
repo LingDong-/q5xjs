@@ -298,6 +298,7 @@ p5.js version used is **1.1.9**.
 | Misc | p5.js | q5.js |
 |---|---|---|
 | Generating 10,000 `randomGaussian()` sample | 10FPS | 20FPS|
+| Calling `noiseSeed()` 1,000 times | 10FPS | 60FPS |
 | Generate 10,000 (random) colors with `color(r,g,b)` | 5FPS | 60FPS |
 | Rotate a `Vector` 1,000,000 times | 13FPS | 60FPS |
 

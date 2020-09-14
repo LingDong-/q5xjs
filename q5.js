@@ -116,6 +116,9 @@ function Q5(scope){
 
     $.VIDEO = {video:true,audio:false};
     $.AUDIO = {video:false,audio:true};
+
+    $.SHR3 = 1;
+    $.LCG = 2;
     
     //================================================================
     // HINTS
@@ -1687,7 +1690,7 @@ function Q5(scope){
     var PERLIN_YWRAPB = 4; var PERLIN_YWRAP = 1<<PERLIN_YWRAPB;
     var PERLIN_ZWRAPB = 8; var PERLIN_ZWRAP = 1<<PERLIN_ZWRAPB;
     var PERLIN_SIZE = 4095;
-    var perlin_octaves = 10;var perlin_amp_falloff = 0.5;
+    var perlin_octaves = 4;var perlin_amp_falloff = 0.5;
     var scaled_cosine = function(i) {return 0.5*(1.0-Math.cos(i*Math.PI));};
     var p_perlin;
 
@@ -1752,28 +1755,60 @@ function Q5(scope){
         }
       };
     };
-    let lcg1 = Lcg();
-    let lcg2 = Lcg();
-    lcg1.setSeed(Math.random()*4294967296);
-    lcg2.setSeed(Math.random()*4294967296);
+    const Shr3 = function(){
+      let jsr, seed;
+      let m = 4294967295;
+      return {
+        setSeed(val){
+          jsr = seed = (val == null ? Math.random() * m : val) >>> 0;
+        },
+        getSeed() {
+          return seed;
+        },
+        rand() {
+          jsr^=(jsr<<17);
+          jsr^=(jsr>>13);
+          jsr^=(jsr<<5);
+          return (jsr>>>0)/m;
+        }
+      }
+    }
+    let rng1 = Shr3();
+    rng1.setSeed();
+
     $.noiseSeed = function(seed) {
-      lcg2.setSeed(seed);
-      p_perlin = new Array(PERLIN_SIZE + 1);
-      for (var i = 0; i < PERLIN_SIZE + 1; i++) {p_perlin[i] = lcg2.rand();}
+      let jsr = (seed == undefined) ? (Math.random()*4294967295) : seed;
+      if (!p_perlin){
+        p_perlin = new Float32Array(PERLIN_SIZE + 1);
+      }
+      for (var i = 0; i < PERLIN_SIZE + 1; i++) {
+        jsr^=(jsr<<17);
+        jsr^=(jsr>>13);
+        jsr^=(jsr<<5);
+        p_perlin[i] = (jsr>>>0)/4294967295;
+      }
     };
     $.randomSeed = function(seed){
-      lcg1.setSeed(seed);
+      rng1.setSeed(seed);
     }
     $.random = function(a,b){
       if (typeof a == 'number'){
         if (b != undefined){
-          return lcg1.rand()*(b-a)+a;
+          return rng1.rand()*(b-a)+a;
         }else{
-          return lcg1.rand()*a;
+          return rng1.rand()*a;
         }
       }else{
-        return a[~~(a.length*lcg1.rand())];
+        return a[~~(a.length*rng1.rand())];
       }
+    }
+    $.randomGenerator = function(method){
+      if (method == $.LCG){
+        rng1 = Lcg();
+      }else if (method == $.SHR3){
+        rng1 = Shr3();
+      }
+      rng1.setSeed();
     }
 
     var ziggurat = new function() {
@@ -1788,7 +1823,7 @@ function Q5(scope){
       var we = new Array(256);
       var fe = new Array(256);
       var SHR3 = function() {
-        return lcg1.rand()*4294967296-2147483648;
+        return rng1.rand()*4294967296-2147483648;
       };
       var UNI = function() {
         return 0.5 + (SHR3()<<0) * 0.2328306e-9;
