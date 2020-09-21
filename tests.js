@@ -2609,6 +2609,7 @@ text(lines, 70, 25);
 /*~~~ https://p5js.org/reference/#/p5/textSize ~~~*/
 
 fill(0);
+noStroke();
 textSize(12);
 text('Font Size 12', 10, 30);
 textSize(14);

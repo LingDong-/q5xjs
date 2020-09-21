@@ -1,4 +1,5 @@
 function Q5(scope){
+  "use strict";
   return new graphics(scope);
   function graphics(scope){let $ = (scope == "global" ? window : this);
     $.canvas = document.createElement("canvas");
@@ -827,6 +828,7 @@ function Q5(scope){
       }
       ctx.save();
       ctx.resetTransform();
+      ctx.scale($._pixelDensity,$._pixelDensity);
       if (typeof arguments[0] == "string"){
         ctx.fillStyle = arguments[0];
       }else{
