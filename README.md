@@ -246,7 +246,7 @@ Though of course the `setup()` and `draw()` functions are still there if you nee
 
 q5.js provides following features that are not in p5.js:
 
-- `randomExponential()` in adition to `randomGaussian()`: a random distribution that resembles exponential decay.
+- `randomExponential()` in addition to `randomGaussian()`: a random distribution that resembles exponential decay.
 - `curveAlpha()`: manipulate the `α` parameter of Catmull-Rom curves.
 - `relRotationX`, `relRotationY` and `relRotationZ`: Similar to `rotationX/Y/Z`, but are relative to the orientation of the mobile device.
 
