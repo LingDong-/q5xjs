@@ -231,7 +231,7 @@ function Q5(scope){
       $.canvas.width = width;
       $.canvas.height = height;
       defaultStyle();
-      return $.canvas
+      return $.canvas;
     }
 
     $.resizeCanvas = function(width, height){
