@@ -2042,10 +2042,10 @@ function Q5(scope){
       }
       clearBuff();
       firstVertex = true;
-      ctx.save();
+      $.push();
       $._drawFn();
-      ctx.restore();
-      $.frameCount++;
+      $.pop();
+      ++$.frameCount;
     }
     
     $.noLoop = function(){
