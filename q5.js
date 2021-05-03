@@ -1176,16 +1176,16 @@ function Q5(scope){
     }
 
     $.pushMatrix = $.push = function(){
-      $._styleCache.push({...$._style})
-      $._style = $._styleCache[$._styleCache.length-1]
+      $._styleCache.push({...$._style});
+      $._style = $._styleCache[$._styleCache.length-1];
       ctx.save();
     }
     $.popMatrix = $.pop = function(){
       if ($._styleCache.length-1) {
-        $._styleCache.pop()
-        $._style = $._styleCache[$._styleCache.length-1]
+        $._styleCache.pop();
+        $._style = $._styleCache[$._styleCache.length-1];
+        ctx.restore();
       }
-      ctx.restore();
     }
 
     //================================================================
