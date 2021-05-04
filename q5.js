@@ -165,20 +165,25 @@ function Q5(scope){
     $.pRelRotationZ = 0;
 
     $.touches = [];
-                           
-    $._colorMode = $.RGB;
-    $._noStroke = false;
-    $._noFill = false;
-    $._ellipseMode = $.CENTER;
-    $._rectMode = $.CORNER;
-    $._curveDetail = 20;
-    $._curveAlpha = 0.0;
-    $._noLoop = false;
 
-    $._textFont = "sans-serif";
-    $._textSize = 12;
-    $._textLeading = 12;
-    $._textStyle = "normal";
+    $._styleCache = [
+      {
+        colorMode: $.RGB,
+        noStroke: false,
+        noFill: false,
+        ellipseMode: $.CENTER,
+        rectMode: $.CORNER,
+        curveDetail: 20,
+        curveAlpha: 0.0,
+        textFont: "sans-serif",
+        textSize: 12,
+        textLeading: 12,
+        textStyle: "normal"
+      }
+    ]
+    $._style = $._styleCache[$._styleCache.length-1]
+
+    $._noLoop = false;
 
     $._pixelDensity = 1;
 
@@ -665,14 +670,14 @@ function Q5(scope){
     }
 
     $.colorMode = function(mode){
-      $._colorMode = mode;
+      $._style.colorMode = mode;
     }
 
     $.color = function() {
       if (arguments.length == 1 && arguments[0].MAGIC == 0xC010A){
         return arguments[0];
       }
-      if ($._colorMode == $.RGB){
+      if ($._style.colorMode == $.RGB){
         if (arguments.length == 1){
           return new $.Color(arguments[0],arguments[0],arguments[0],1);
         }else if (arguments.length == 2){
@@ -735,7 +740,7 @@ function Q5(scope){
     }
 
     $.lerpColor = function(a , b , t ){
-      if ($._colorMode == $.RGB){
+      if ($._style.colorMode == $.RGB){
         return new $.Color(
           $.constrain($.lerp(a._r,b._r,t),0,255),
           $.constrain($.lerp(a._g,b._g,t),0,255),
@@ -766,53 +771,53 @@ function Q5(scope){
     }
 
     $.strokeWeight = function(n){
-      $._noStroke = false;
+      $._style_noStroke = false;
       ctx.lineWidth = n;
     }
     $.stroke = function(){
-      $._noStroke = false;
+      $._style.noStroke = false;
       if (typeof arguments[0] == "string"){
         ctx.strokeStyle = arguments[0];
         return;
       }
       let col = $.color.apply(null,arguments);
       if (col._a <= 0){
-        $._noStroke = true;
+        $._style.noStroke = true;
         return;
       }
       ctx.strokeStyle = col;
     }
     $.noStroke = function(){
-      $._noStroke = true;
+      $._style.noStroke = true;
     }
     $.fill = function(){
-      $._noFill = false;
+      $._style.noFill = false;
       if (typeof arguments[0] == "string"){
         ctx.fillStyle = arguments[0];
         return;
       }
       let col = $.color.apply(null,arguments);
       if (col._a <= 0){
-        $._noFill = true;
+        $._style.noFill = true;
         return;
       }
       ctx.fillStyle = col;
     }
     $.noFill = function(){
-      $._noFill = true;
+      $._style.noFill = true;
     }
     $.blendMode = function(x){
       ctx.globalCompositeOperation = x;
     }
     $.strokeCap =      function(x){ctx.lineCap = x;}
     $.strokeJoin =     function(x){ctx.lineJoin = x;}
-    $.ellipseMode =    function(x){$._ellipseMode = x;}
-    $.rectMode =       function(x){$._rectMode = x;}
-    $.curveDetail =    function(x){$._curveDetail = x;}
-    $.curveAlpha =     function(x){$._curveAlpha = x;}
+    $.ellipseMode =    function(x){$._style.ellipseMode = x;}
+    $.rectMode =       function(x){$._style.rectMode = x;}
+    $.curveDetail =    function(x){$._style.curveDetail = x;}
+    $.curveAlpha =     function(x){$._style.curveAlpha = x;}
     $.curveTightness = function(x){
       console.warn("curveTightness() sets the 'alpha' parameter of Catmull-Rom curve, and is NOT identical to p5.js counterpart. As this might change in the future, please call curveAlpha() directly.");
-      $._curveAlpha = x;
+      $._style.curveAlpha = x;
     }
     
     //================================================================
@@ -840,7 +845,7 @@ function Q5(scope){
     }
 
     $.line = function(x0, y0, x1, y1){
-      if (!$._noStroke){
+      if (!$._style.noStroke){
         ctx.beginPath();
         ctx.moveTo(x0,y0);
         ctx.lineTo(x1,y1);
@@ -862,7 +867,7 @@ function Q5(scope){
     }
 
     function arcImpl(x, y, w, h, start, stop, mode, detail){
-      if ($._noFill && $._noStroke){
+      if ($._style.noFill && $._style.noStroke){
         return;
       }
       let lo = norm2PI(start);
@@ -881,8 +886,8 @@ function Q5(scope){
         ctx.lineTo(x,y);
         ctx.closePath();
       }
-      if (!$._noFill)ctx.fill();
-      if (!$._noStroke)ctx.stroke();
+      if (!$._style.noFill)ctx.fill();
+      if (!$._style.noStroke)ctx.stroke();
     }
     $.arc = function(x, y, w, h, start, stop, mode, detail){
       if (start == stop){
@@ -894,37 +899,37 @@ function Q5(scope){
       if (mode == undefined){
         mode = $.PIE;
       }
-      if ($._ellipseMode == $.CENTER){
+      if ($._style.ellipseMode == $.CENTER){
         arcImpl(x,y,w,h,start,stop,mode,detail);
-      }else if ($._ellipseMode == $.RADIUS){
+      }else if ($._style.ellipseMode == $.RADIUS){
         arcImpl(x,y,w*2,h*2,start,stop,mode,detail);
-      }else if ($._ellipseMode == $.CORNER){
+      }else if ($._style.ellipseMode == $.CORNER){
         arcImpl(x+w/2,y+h/2,w,h,start,stop,mode,detail);
-      }else if ($._ellipseMode == $.CORNERS){
+      }else if ($._style.ellipseMode == $.CORNERS){
         arcImpl((x+w)/2,(y+h)/2,(w-x),(h-y),start,stop,mode,detail);
       }
     }
 
     function ellipseImpl(x,y,w,h){
-      if ($._noFill && $._noStroke){
+      if ($._style.noFill && $._style.noStroke){
         return;
       }
       ctx.beginPath();
       ctx.ellipse(x, y, w/2, h/2, 0, 0, Math.PI*2);
-      if (!$._noFill)ctx.fill();
-      if (!$._noStroke)ctx.stroke();
+      if (!$._style.noFill)ctx.fill();
+      if (!$._style.noStroke)ctx.stroke();
     }
     $.ellipse = function(x, y, w, h){
       if (h == undefined){
         h = w;
       }
-      if ($._ellipseMode == $.CENTER){
+      if ($._style.ellipseMode == $.CENTER){
         ellipseImpl(x,y,w,h);
-      }else if ($._ellipseMode == $.RADIUS){
+      }else if ($._style.ellipseMode == $.RADIUS){
         ellipseImpl(x,y,w*2,h*2);
-      }else if ($._ellipseMode == $.CORNER){
+      }else if ($._style.ellipseMode == $.CORNER){
         ellipseImpl(x+w/2,y+h/2,w,h);
-      }else if ($._ellipseMode == $.CORNERS){
+      }else if ($._style.ellipseMode == $.CORNERS){
         ellipseImpl((x+w)/2,(y+h)/2,(w-x),(h-y));
       }
     }
@@ -941,15 +946,15 @@ function Q5(scope){
       ctx.stroke();
     }
     function rectImpl(x,y,w,h){
-      if (!$._noFill){
+      if (!$._style.noFill){
         ctx.fillRect(x,y,w,h);
       }
-      if (!$._noStroke){
+      if (!$._style.noStroke){
         ctx.strokeRect(x,y,w,h);
       }
     }
     function roundedRectImpl(x,y,w,h,tl,tr,br,bl){
-      if ($._noFill && $._noStroke){
+      if ($._style.noFill && $._style.noStroke){
         return;
       }
       if (tl == undefined){
@@ -970,18 +975,18 @@ function Q5(scope){
       ctx.arcTo(x, y + h, x, y, bl);
       ctx.arcTo(x, y, x + w, y, tl);
       ctx.closePath();
-      if (!$._noFill)ctx.fill();
-      if (!$._noStroke)ctx.stroke();
+      if (!$._style.noFill)ctx.fill();
+      if (!$._style.noStroke)ctx.stroke();
     }
 
     $.rect = function(x,y,w,h, tl,tr,br,bl){
-      if ($._rectMode == $.CENTER){
+      if ($._style.rectMode == $.CENTER){
         roundedRectImpl(x-w/2,y-h/2,w,h, tl,tr,br,bl);
-      }else if ($._rectMode == $.RADIUS){
+      }else if ($._style.rectMode == $.RADIUS){
         roundedRectImpl(x-w,y-h,w*2,h*2, tl,tr,br,bl);
-      }else if ($._rectMode == $.CORNER){
+      }else if ($._style.rectMode == $.CORNER){
         roundedRectImpl(x,y,w,h, tl,tr,br,bl);
-      }else if ($._rectMode == $.CORNERS){
+      }else if ($._style.rectMode == $.CORNERS){
         roundedRectImpl(x,y,w-x,h-y, tl,tr,br,bl);
       }
     }
@@ -1050,9 +1055,9 @@ function Q5(scope){
       if (close){
         ctx.closePath();
       }
-      if (!$._noFill)ctx.fill();
-      if (!$._noStroke)ctx.stroke();
-      if ($._noFill && $._noStroke){ // eh.
+      if (!$._style.noFill)ctx.fill();
+      if (!$._style.noStroke)ctx.stroke();
+      if ($._style.noFill && $._style.noStroke){ // eh.
         ctx.save();
         ctx.fillStyle="none";
         ctx.fill();
@@ -1119,8 +1124,8 @@ function Q5(scope){
       let p1 = curveBuff[curveBuff.length-3];
       let p2 = curveBuff[curveBuff.length-2];
       let p3 = curveBuff[curveBuff.length-1];
-      let pts = catmullRomSpline(...p0,...p1,...p2,...p3,$._curveDetail,
-        $._curveAlpha,
+      let pts = catmullRomSpline(...p0,...p1,...p2,...p3,$._style.curveDetail,
+        $._style.curveAlpha,
       );
       for (let i = 0; i < pts.length; i++){
         if (firstVertex){
@@ -1171,10 +1176,16 @@ function Q5(scope){
     }
 
     $.pushMatrix = $.push = function(){
+      $._styleCache.push({...$._style});
+      $._style = $._styleCache[$._styleCache.length-1];
       ctx.save();
     }
     $.popMatrix = $.pop = function(){
-      ctx.restore();
+      if ($._styleCache.length-1) {
+        $._styleCache.pop();
+        $._style = $._styleCache[$._styleCache.length-1];
+        ctx.restore();
+      }
     }
 
     //================================================================
@@ -1637,17 +1648,17 @@ function Q5(scope){
       return name;
     }
     $.textFont = function(x){
-      $._textFont = x;
+      $._style.textFont = x;
     }
     $.textSize = function(x){
-      $._textSize = x;
-      $._textLeading = x;
+      $._style.textSize = x;
+      $._style.textLeading = x;
     }
     $.textLeading = function(x){
-      $._textLeading = x;
+      $._style.textLeading = x;
     }
     $.textStyle = function(x){
-      $._textStyle = x;
+      $._style.textStyle = x;
     }
     $.textAlign = function(horiz,vert){
       ctx.textAlign = horiz;
@@ -1660,27 +1671,27 @@ function Q5(scope){
         return;
       }
       str = str.toString();
-      if ($._noFill && $._noStroke){
+      if ($._style.noFill && $._style.noStroke){
         return;
       }
-      ctx.font = `${$._textStyle} ${$._textSize}px ${$._textFont}`;
+      ctx.font = `${$._style.textStyle} ${$._style.textSize}px ${$._style.textFont}`;
       let lines = str.split("\n");
       for (let i = 0; i < lines.length; i++){
-        if (!$._noFill){ctx.fillText(lines[i],x,y,w)}
-        if (!$._noStroke){ctx.strokeText(lines[i],x,y,w)}
-        y += $._textLeading;
+        if (!$._style.noFill){ctx.fillText(lines[i],x,y,w)}
+        if (!$._style.noStroke){ctx.strokeText(lines[i],x,y,w)}
+        y += $._style.textLeading;
       }
     }
     $.textWidth = function(str){
-      ctx.font = `${$._textStyle} ${$._textSize}px ${$._textFont}`;
+      ctx.font = `${$._style.textStyle} ${$._style.textSize}px ${$._style.textFont}`;
       return ctx.measureText(str).width;
     }   
     $.textAscent = function(str){
-      ctx.font = `${$._textStyle} ${$._textSize}px ${$._textFont}`;
+      ctx.font = `${$._style.textStyle} ${$._style.textSize}px ${$._style.textFont}`;
       return ctx.measureText(str).actualBoundingBoxAscent;
     }
     $.textDescent = function(str){
-      ctx.font = `${$._textStyle} ${$._textSize}px ${$._textFont}`;
+      ctx.font = `${$._style.textStyle} ${$._style.textSize}px ${$._style.textFont}`;
       return ctx.measureText(str).actualBoundingBoxDescent;
     }
 
@@ -2031,10 +2042,10 @@ function Q5(scope){
       }
       clearBuff();
       firstVertex = true;
-      ctx.save();
+      $.push();
       $._drawFn();
-      ctx.restore();
-      $.frameCount++;
+      $.pop();
+      ++$.frameCount;
     }
     
     $.noLoop = function(){
