@@ -1,6 +1,6 @@
 {
   "name": "q5xjs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A small and fast alternative (experimental) implementation of p5.js",
   "repository": {
     "type": "git",
