@@ -1,3 +1,5 @@
+if(typeof exports === "object" && typeof module !== "undefined") module.exports = Q5;
+
 function Q5(scope){
   "use strict";
   return new graphics(scope);
@@ -9,7 +11,7 @@ function Q5(scope){
     $.height = 100;
     $.canvas.width = $.width;
     $.canvas.height = $.height;
-    
+
     if (scope != "offscreen"){
       if (document.body){
         document.body.appendChild($.canvas);
@@ -93,7 +95,7 @@ function Q5(scope){
     $.SHIFT = 16;
     $.TAB = 9;
     $.UP_ARROW = 38;
-    
+
     $.HALF_PI = Math.PI/2;
     $.PI = Math.PI;
     $.QUARTER_PI = Math.PI/4;
@@ -120,7 +122,7 @@ function Q5(scope){
 
     $.SHR3 = 1;
     $.LCG = 2;
-    
+
     //================================================================
     // HINTS
     //================================================================
@@ -258,7 +260,7 @@ function Q5(scope){
         return $._pixelDensity;
       }
       $._pixelDensity = n;
-      
+
       $.canvas.width = Math.ceil($.width*n);
       $.canvas.height = Math.ceil($.height*n);
       $.canvas.style.width = $.width+"px";
@@ -376,7 +378,7 @@ function Q5(scope){
       v.dot=  function(){let u = arg2v.apply(null,arguments); return v.x*u.x+v.y*u.y+v.z*u.z}
       v.dist= function(){let u = arg2v.apply(null,arguments); let x = v.x-u.x; let y = v.y-u.y; let z = v.z-u.z; return Math.sqrt(x*x+y*y+z*z)}
       v.cross=function(){
-        let u = arg2v.apply(null,arguments); 
+        let u = arg2v.apply(null,arguments);
         let x = v.y*u.z - v.z*u.y;
         let y = v.z*u.x - v.x*u.z;
         let z = v.x*u.y - v.y*u.x;
@@ -421,11 +423,11 @@ function Q5(scope){
         let vx = (v.x * costh - v.y * sinth);
         let vy = (v.x * sinth + v.y * costh);
         v.x = vx;
-        v.y = vy;      
+        v.y = vy;
         return v;
       }
       v.angleBetween = function(){
-        let u = arg2v.apply(null,arguments); 
+        let u = arg2v.apply(null,arguments);
         const costh = v.dot(u) / (v.mag() * u.mag());
         let ang;
         ang = Math.acos(Math.min(1, Math.max(-1, costh)));
@@ -453,8 +455,8 @@ function Q5(scope){
             epsilon = 0;
           }
         }
-        return Math.abs(u.x-v.x)<epsilon 
-            && Math.abs(u.y-v.y)<epsilon 
+        return Math.abs(u.x-v.x)<epsilon
+            && Math.abs(u.y-v.y)<epsilon
             && Math.abs(u.z-v.z)<epsilon;
       }
       v.fromAngle = function(th,l){
@@ -631,7 +633,7 @@ function Q5(scope){
         h = 240 + 60 * (r - g) / (rgbMax - rgbMin);
       return [h,s,v];
     }
-    
+
     $.Color = function(r,g,b,a){let that = this;
       that.MAGIC = 0xC010A;
       that._r = r;
@@ -701,27 +703,27 @@ function Q5(scope){
       return null;
     }
 
-    $.red = function(c )  { 
+    $.red = function(c )  {
       return c._r;
     }
-    $.green = function(c )  { 
+    $.green = function(c )  {
       return c._g;
     }
-    $.blue = function(c )  { 
+    $.blue = function(c )  {
       return c._b;
     }
-    $.alpha = function(c )  { 
+    $.alpha = function(c )  {
       return c._a*255;
     }
-    $.hue = function(c )  { 
+    $.hue = function(c )  {
       c._inferHSV();
       return c._h;
     }
-    $.saturation = function(c )  { 
+    $.saturation = function(c )  {
       c._inferHSV();
       return c._s;
     }
-    $.brightness = function(c )  { 
+    $.brightness = function(c )  {
       c._inferHSV();
       return c._v;
     }
@@ -819,7 +821,7 @@ function Q5(scope){
       console.warn("curveTightness() sets the 'alpha' parameter of Catmull-Rom curve, and is NOT identical to p5.js counterpart. As this might change in the future, please call curveAlpha() directly.");
       $._style.curveAlpha = x;
     }
-    
+
     //================================================================
     // DRAWING
     //================================================================
@@ -993,7 +995,7 @@ function Q5(scope){
     $.square = function(x,y,s,tl,tr,br,bl){
       return $.rect(x,y,s,s,tl,tr,br,bl);
     }
-    
+
     function clearBuff(){
       curveBuff = [];
     }
@@ -1078,8 +1080,8 @@ function Q5(scope){
       let t2 = catmullromSplineGetT(t1, p1x, p1y, p2x, p2y, alpha);
       let t3 = catmullromSplineGetT(t2, p2x, p2y, p3x, p3y, alpha);
 
-      for (let i=0; i<numPts; i++){ 
-        let t = t1+i/(numPts-1)*(t2-t1); 
+      for (let i=0; i<numPts; i++){
+        let t = t1+i/(numPts-1)*(t2-t1);
         let s = [(t1-t)/(t1-t0), (t-t0)/(t1-t0), (t2-t)/(t2-t1), (t-t1)/(t2-t1),
                  (t3-t)/(t3-t2), (t-t2)/(t3-t2), (t2-t)/(t2-t0), (t-t0)/(t2-t0),
                  (t3-t)/(t3-t1), (t-t1)/(t3-t1)];
@@ -1354,15 +1356,15 @@ function Q5(scope){
       }
     }
 
-    
+
     filterImpl[$.BLUR] = function(data,rad){
       rad = rad || 1;
       rad = Math.floor(rad*$._pixelDensity);
       makeTmpBuf();
       tmpBuf.set(data);
-      
+
       let ksize = rad*2+1;
-      
+
       function gauss1d(ksize){
         let im = new Float32Array(ksize);
         let sigma = 0.3*rad+0.8;
@@ -1558,7 +1560,7 @@ function Q5(scope){
       tmpCtx.globalCompositeOperation = "multiply";
       tmpCtx.drawImage(ctx.canvas,0,0);
       tmpCtx.globalCompositeOperation = "source-over";
-      
+
       ctx.save();
       ctx.resetTransform();
       let old = ctx.globalCompositeOperation;
@@ -1685,7 +1687,7 @@ function Q5(scope){
     $.textWidth = function(str){
       ctx.font = `${$._style.textStyle} ${$._style.textSize}px ${$._style.textFont}`;
       return ctx.measureText(str).width;
-    }   
+    }
     $.textAscent = function(str){
       ctx.font = `${$._style.textStyle} ${$._style.textSize}px ${$._style.textFont}`;
       return ctx.measureText(str).actualBoundingBoxAscent;
@@ -1845,7 +1847,7 @@ function Q5(scope){
       var UNI = function() {
         return 0.5 + (SHR3()<<0) * 0.2328306e-9;
       };
-    
+
       var RNOR = function() {
         hz = SHR3();
         iz = hz & 127;
@@ -1871,7 +1873,7 @@ function Q5(scope){
             } while (y + y < x * x);
             return (hz > 0) ? (r + x) : (- r - x);
           }
-    
+
           if (fn[iz] + UNI() * (fn[iz - 1] - fn[iz]) < Math.exp(-0.5 * x * x)) {
             return x;
           }
@@ -1881,7 +1883,7 @@ function Q5(scope){
             return hz * wn[iz];
           }
         }
-        
+
       };
       var efix = function() {
         var x;
@@ -1912,7 +1914,7 @@ function Q5(scope){
         var te = de;
         var ve = 3.949659822581572e-3;
         var i;
-        
+
         /* Tables for RNOR */
         q = vn / Math.exp(-0.5 * dn * dn);
         kn[0] = Math.floor((dn / q) * m1);
@@ -2007,7 +2009,7 @@ function Q5(scope){
       return vid;
     }
 
-    
+
     //================================================================
     // EVENTS
     //================================================================
@@ -2047,7 +2049,7 @@ function Q5(scope){
       $.pop();
       ++$.frameCount;
     }
-    
+
     $.noLoop = function(){
       $._noLoop = true;
       looper = null;
@@ -2064,7 +2066,7 @@ function Q5(scope){
     $.frameRate = function(fps){
       $._frameRate = fps;
     }
-    
+
     setTimeout(function(){
       $._preloadFn();
       millisStart = window.performance.now();
@@ -2077,12 +2079,12 @@ function Q5(scope){
         $._setupFn();
         // ctx.restore();
         _draw();
-        
+
       };
     },1);
-    
+
     $.canvas.onmousemove = function(event){
-      
+
       $.pmouseX = $.mouseX;
       $.pmouseY = $.mouseY;
       $.mouseX = event.offsetX;
@@ -2109,7 +2111,7 @@ function Q5(scope){
       $.mouseX = event.offsetX;
       $.mouseY = event.offsetY;
       $.mouseIsPressed = false;
-      $._mouseReleasedFn(event); 
+      $._mouseReleasedFn(event);
     }
     $.canvas.onclick = function(event){
       $.pmouseX = $.mouseX;
@@ -2117,7 +2119,7 @@ function Q5(scope){
       $.mouseX = event.offsetX;
       $.mouseY = event.offsetY;
       $.mouseIsPressed = true;
-      $._mouseClickedFn(event); 
+      $._mouseClickedFn(event);
       $.mouseIsPressed = false;
     }
     window.addEventListener("keydown",function(event){
@@ -2153,8 +2155,8 @@ function Q5(scope){
       };
     }
     function isTouchUnaware(){
-      return $._touchStarted.isPlaceHolder 
-         &&  $._touchMoved.isPlaceHolder 
+      return $._touchStarted.isPlaceHolder
+         &&  $._touchMoved.isPlaceHolder
          &&  $._touchEnded.isPlaceHolder
     }
     $.canvas.ontouchstart = function(event){
@@ -2272,11 +2274,11 @@ function Q5(scope){
         $.accelerationZ =  (event.accelerationIncludingGravity.z-grav[2]);
       }
     }
-    
+
     //================================================================
     // TIME
     //================================================================
-    
+
     $.year = function(){
       return new Date().getFullYear();
     }
