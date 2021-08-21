@@ -6,5 +6,5 @@
     "type": "git",
     "url": "git+https://github.com/LingDong-/q5xjs.git"
   },
-  "main": "q5.js"
+  "main": "q5.min.js"
 }
