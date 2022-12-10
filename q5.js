@@ -331,6 +331,7 @@ function Q5(scope){
     $.acos = Math.acos;
     $.atan = Math.atan;
     $.atan2 = Math.atan2;
+    $.pow = Math.pow;
 
     //================================================================
     // VECTOR
