@@ -2155,12 +2155,12 @@ function Q5(scope){
       };
     }
     function isTouchUnaware(){
-      return $._touchStarted.isPlaceHolder
-         &&  $._touchMoved.isPlaceHolder
-         &&  $._touchEnded.isPlaceHolder
+      return $.touchStarted
+         &&  $.touchMoved
+         &&  $.touchEnded
     }
     $.canvas.ontouchstart = function(event){
-      $.touches = event.touches.map(getTouchInfo);
+      $.touches = [...event.touches].map(getTouchInfo);
       if (isTouchUnaware()){
         $.pmouseX = $.mouseX;
         $.pmouseY = $.mouseY;
@@ -2172,13 +2172,13 @@ function Q5(scope){
           event.preventDefault();
         }
       }
-      if (!$._touchStartedFn(event)){
+      if (!$.touchStarted(event)){
         event.preventDefault();
       }
 
     }
     $.canvas.ontouchmove = function(event){
-      $.touches = event.touches.map(getTouchInfo);
+      $.touches = [...event.touches].map(getTouchInfo);
       if (isTouchUnaware()){
         $.pmouseX = $.mouseX;
         $.pmouseY = $.mouseY;
@@ -2190,13 +2190,13 @@ function Q5(scope){
           event.preventDefault();
         }
       }
-      if (!$._touchMovedFn(event)){
+      if (!$.touchMoved(event)){
         event.preventDefault();
       }
 
     }
     $.canvas.ontouchend = $.canvas.ontouchcancel = function(event){
-      $.touches = event.touches.map(getTouchInfo);
+      $.touches = [...event.touches].map(getTouchInfo);
       if (isTouchUnaware()){
         $.pmouseX = $.mouseX;
         $.pmouseY = $.mouseY;
@@ -2207,7 +2207,7 @@ function Q5(scope){
           event.preventDefault();
         }
       }
-      if (!$._touchEndedFn(event)){
+      if (!$.touchEnded(event)){
         event.preventDefault();
       }
     }
