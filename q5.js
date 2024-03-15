@@ -2019,7 +2019,7 @@ function Q5(scope){
       "setup","draw","preload",
       "mouseMoved","mousePressed","mouseReleased","mouseDragged","mouseClicked",
       "keyPressed","keyReleased","keyTyped",
-      "touchStarted","touchEnded",
+      "touchStarted","touchEnded","touchMoved"
     ];
     for (let k of eventNames){
       let intern = "_"+k+"Fn";
@@ -2155,12 +2155,12 @@ function Q5(scope){
       };
     }
     function isTouchUnaware(){
-      return $._touchStarted.isPlaceHolder
-         &&  $._touchMoved.isPlaceHolder
-         &&  $._touchEnded.isPlaceHolder
+      return $._touchStartedFn.isPlaceHolder
+         &&  $._touchMovedFn.isPlaceHolder
+         &&  $._touchEndedFn.isPlaceHolder
     }
     $.canvas.ontouchstart = function(event){
-      $.touches = event.touches.map(getTouchInfo);
+      $.touches = [...event.touches].map(getTouchInfo);
       if (isTouchUnaware()){
         $.pmouseX = $.mouseX;
         $.pmouseY = $.mouseY;
@@ -2178,7 +2178,7 @@ function Q5(scope){
 
     }
     $.canvas.ontouchmove = function(event){
-      $.touches = event.touches.map(getTouchInfo);
+      $.touches = [...event.touches].map(getTouchInfo);
       if (isTouchUnaware()){
         $.pmouseX = $.mouseX;
         $.pmouseY = $.mouseY;
@@ -2196,7 +2196,7 @@ function Q5(scope){
 
     }
     $.canvas.ontouchend = $.canvas.ontouchcancel = function(event){
-      $.touches = event.touches.map(getTouchInfo);
+      $.touches = [...event.touches].map(getTouchInfo);
       if (isTouchUnaware()){
         $.pmouseX = $.mouseX;
         $.pmouseY = $.mouseY;
