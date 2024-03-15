@@ -2019,7 +2019,7 @@ function Q5(scope){
       "setup","draw","preload",
       "mouseMoved","mousePressed","mouseReleased","mouseDragged","mouseClicked",
       "keyPressed","keyReleased","keyTyped",
-      "touchStarted","touchEnded",
+      "touchStarted","touchEnded","touchMoved"
     ];
     for (let k of eventNames){
       let intern = "_"+k+"Fn";
@@ -2155,9 +2155,9 @@ function Q5(scope){
       };
     }
     function isTouchUnaware(){
-      return $.touchStarted
-         &&  $.touchMoved
-         &&  $.touchEnded
+      return $._touchStartedFn.isPlaceHolder
+         &&  $._touchMovedFn.isPlaceHolder
+         &&  $._touchEndedFn.isPlaceHolder
     }
     $.canvas.ontouchstart = function(event){
       $.touches = [...event.touches].map(getTouchInfo);
@@ -2172,7 +2172,7 @@ function Q5(scope){
           event.preventDefault();
         }
       }
-      if (!$.touchStarted(event)){
+      if (!$._touchStartedFn(event)){
         event.preventDefault();
       }
 
@@ -2190,7 +2190,7 @@ function Q5(scope){
           event.preventDefault();
         }
       }
-      if (!$.touchMoved(event)){
+      if (!$._touchMovedFn(event)){
         event.preventDefault();
       }
 
@@ -2207,7 +2207,7 @@ function Q5(scope){
           event.preventDefault();
         }
       }
-      if (!$.touchEnded(event)){
+      if (!$._touchEndedFn(event)){
         event.preventDefault();
       }
     }
